@@ -1,18 +1,13 @@
 package com.jcdecaux.jcdecauxchallengebackend.services.impls;
 
-import com.jcdecaux.jcdecauxchallengebackend.models.Developpeur;
-import com.jcdecaux.jcdecauxchallengebackend.models.DeveloppeurDto;
 import com.jcdecaux.jcdecauxchallengebackend.models.Language;
 import com.jcdecaux.jcdecauxchallengebackend.models.LanguageDto;
-import com.jcdecaux.jcdecauxchallengebackend.models.mappers.DeveloppeurMapper;
 import com.jcdecaux.jcdecauxchallengebackend.models.mappers.LanguageMapper;
 import com.jcdecaux.jcdecauxchallengebackend.repositories.LanguageRepository;
 import com.jcdecaux.jcdecauxchallengebackend.services.LanguageService;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class LanguageServiceImpl implements LanguageService {

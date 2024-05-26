@@ -1,6 +1,5 @@
 package com.jcdecaux.jcdecauxchallengebackend.services;
 
-import com.jcdecaux.jcdecauxchallengebackend.models.Developpeur;
 import com.jcdecaux.jcdecauxchallengebackend.models.Language;
 import com.jcdecaux.jcdecauxchallengebackend.models.LanguageDto;
 
