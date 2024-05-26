@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,8 +21,6 @@ public class Developpeur {
     private Long id;
     private String nom;
     private String prenom;
-    private String adresse;
-    private String email;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -48,4 +47,15 @@ public class Developpeur {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Developpeur that)) return false;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
 }

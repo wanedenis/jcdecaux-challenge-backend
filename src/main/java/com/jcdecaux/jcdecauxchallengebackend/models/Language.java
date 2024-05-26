@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -43,6 +44,19 @@ public class Language {
             this.developpeurs.remove(developpeur);
             developpeur.getLanguages().remove(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Language language)) return false;
+        return Objects.equals(getId(), language.getId())
+                && Objects.equals(getNom(), language.getNom());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
     }
 
 }
