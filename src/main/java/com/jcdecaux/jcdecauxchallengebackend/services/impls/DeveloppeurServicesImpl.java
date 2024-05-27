@@ -72,23 +72,27 @@ public class DeveloppeurServicesImpl implements DeveloppeurServices {
     }
 
     @Override
-    public boolean addLanguageToDeveloppeur(LanguageDto language, Long developpeurId) {
+    public Developpeur addLanguageToDeveloppeur(LanguageDto language, Long developpeurId) {
 
         if (language != null){
 
             Optional<Language> _language = languageRepository.findLanguageByNom(language.getNom());
+            //.orElseThrow(() -> new RuntimeException("Language not found"));
 
             if (_language.isPresent()){
 
                 Optional<Developpeur> dev = developpeurRepository.findById(developpeurId);
+                //.orElseThrow(() -> new RuntimeException("Developpeur not found"));
 
                 if (dev.isPresent()){
 
                     Developpeur _developpeur = dev.get();
 
-                    _developpeur.addLanguage(_language.get());
-
-                    return true;
+                    if (!_developpeur.getLanguages().contains(_language.get())) {
+                        _developpeur.getLanguages().add(_language.get());
+                        developpeurRepository.save(_developpeur);
+                        return _developpeur;
+                    }
 
                 }
 
@@ -96,9 +100,7 @@ public class DeveloppeurServicesImpl implements DeveloppeurServices {
 
         }
 
-        return false;
+        return null;
     }
-
-
 
 }

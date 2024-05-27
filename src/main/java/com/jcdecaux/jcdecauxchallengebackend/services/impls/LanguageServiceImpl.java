@@ -8,6 +8,7 @@ import com.jcdecaux.jcdecauxchallengebackend.services.LanguageService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LanguageServiceImpl implements LanguageService {
@@ -24,8 +25,10 @@ public class LanguageServiceImpl implements LanguageService {
         if (language != null &&
                 language.getNom() != null){
 
-            return languageRepository
-                    .save(LanguageMapper.INSTANCE.languageDtoToLanguage(language));
+            Optional<Language> _lang = languageRepository.findLanguageByNom(language.getNom());
+
+            if(_lang.isEmpty())
+                return languageRepository.save(LanguageMapper.INSTANCE.languageDtoToLanguage(language));
         }
 
         return null;

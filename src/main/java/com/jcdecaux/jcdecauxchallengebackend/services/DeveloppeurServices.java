@@ -14,6 +14,6 @@ public interface DeveloppeurServices {
 
     List<Developpeur> getListDeveloppeurs(String language);
 
-    boolean addLanguageToDeveloppeur(LanguageDto language, Long developpeurId);
+    Developpeur addLanguageToDeveloppeur(LanguageDto language, Long developpeurId);
 
 }

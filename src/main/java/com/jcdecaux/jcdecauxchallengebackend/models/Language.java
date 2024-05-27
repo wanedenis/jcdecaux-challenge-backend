@@ -1,5 +1,6 @@
 package com.jcdecaux.jcdecauxchallengebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,26 +10,23 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(uniqueConstraints = {
+                @UniqueConstraint(columnNames = "nom")
+        })
 public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nom;
-    private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "developpeur_language",
-            joinColumns = { @JoinColumn(name = "developpeur_id") },
-            inverseJoinColumns = { @JoinColumn(name = "language_id") })
+    private String nom;
+
+    @ManyToMany(mappedBy = "languages")
+    @JsonBackReference
     private Set<Developpeur> developpeurs = new HashSet<>();
 
     public void addDeveloppeur(Developpeur developpeur) {

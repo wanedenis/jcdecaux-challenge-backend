@@ -1,5 +1,6 @@
 package com.jcdecaux.jcdecauxchallengebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class Developpeur {
     @JoinTable(name = "developpeur_language",
             joinColumns = { @JoinColumn(name = "developpeur_id") },
             inverseJoinColumns = { @JoinColumn(name = "language_id") })
+    @JsonManagedReference
     private Set<Language> languages = new HashSet<>();
 
     public void addLanguage(Language language) {

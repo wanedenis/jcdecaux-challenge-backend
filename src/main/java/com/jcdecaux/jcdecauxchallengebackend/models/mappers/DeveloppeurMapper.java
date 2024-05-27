@@ -3,6 +3,7 @@ package com.jcdecaux.jcdecauxchallengebackend.models.mappers;
 import com.jcdecaux.jcdecauxchallengebackend.models.Developpeur;
 import com.jcdecaux.jcdecauxchallengebackend.models.DeveloppeurDto;
 import com.jcdecaux.jcdecauxchallengebackend.models.Language;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Mapper
 public interface DeveloppeurMapper {
 
     DeveloppeurMapper INSTANCE = Mappers.getMapper(DeveloppeurMapper.class);

@@ -6,13 +6,13 @@ import com.jcdecaux.jcdecauxchallengebackend.models.LanguageDto;
 import com.jcdecaux.jcdecauxchallengebackend.services.DeveloppeurServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@Controller
+@RestController
+@RequestMapping("api/developpeurs")
 public class DeveloppeurController {
 
     private final DeveloppeurServices developpeurServices;
@@ -21,7 +21,7 @@ public class DeveloppeurController {
         this.developpeurServices = developpeurServices;
     }
 
-    @GetMapping("/developpeurs")
+    @GetMapping
     public ResponseEntity<List<Developpeur>> getAllDeveloppeurs(@RequestParam(required = false) String language) {
 
         try {
@@ -32,7 +32,7 @@ public class DeveloppeurController {
         }
     }
 
-    @PostMapping("/developpeurs")
+    @PostMapping
     public ResponseEntity<Developpeur> createDeveloppeur(@RequestBody DeveloppeurDto developpeur) {
 
         try {
@@ -46,7 +46,7 @@ public class DeveloppeurController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/developpeurs/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Developpeur> updateDeveloppeur(@PathVariable("id") long id, @RequestBody DeveloppeurDto developpeur) {
 
         try{
@@ -59,12 +59,13 @@ public class DeveloppeurController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/developpeurs/{id}")
-    public ResponseEntity<String> addLanguageToDeveloppeur(@PathVariable("id") long id, @RequestBody LanguageDto languageDto) {
+    @PostMapping("/{id}")
+    public ResponseEntity<Developpeur> addLanguageToDeveloppeur(@PathVariable("id") long id, @RequestBody LanguageDto languageDto) {
 
         try{
-            if (developpeurServices.addLanguageToDeveloppeur(languageDto, id))
-                return new ResponseEntity<>("true", HttpStatus.OK);
+            Developpeur _dev = developpeurServices.addLanguageToDeveloppeur(languageDto, id);
+            if (_dev != null) return new ResponseEntity<>(_dev, HttpStatus.OK);
+
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
